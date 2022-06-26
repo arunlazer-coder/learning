@@ -1,0 +1,42 @@
+1.create a Store using configureStore 
+
+        const store = configureStore({
+        reducer: {
+            redux: reduxReducer //define the reducer which is u are going to use
+        },
+        })
+        
+2.create a Slice using createSlice which will basically contain everything state , actions . 
+need to export 3 things 
+    1.counterSlice ( The Slice which we are creating )
+    1.actions ( The Actions comes under the Slice )
+    1.reducers ( which is gonna pass into store )
+
+const counterSlice = createSlice({
+  name: 'counter',
+  initialState:{value:0},
+  reducers: {
+    increment: (state) => {
+      // Redux Toolkit allows us to write "mutating" logic in reducers. It
+      // doesn't actually mutate the state because it uses the Immer library,
+      // which detects changes to a "draft state" and produces a brand new
+      // immutable state based off those changes
+      state.value += 1
+    },
+    decrement: (state) => {
+      state.value -= 1
+    },
+    incrementByAmount: (state, action) => {
+      state.value += action.payload
+    },
+  },
+})
+
+// Action creators are generated for each case reducer function
+export const { increment, decrement, incrementByAmount } = counterSlice.actions
+
+export default counterSlice.reducer
+
+3.use useSelector hook for data fetch , useDispatch Hook for actions ( updating state)
+  
+  const data = useSelector(state => state.redux); //after state we need check for name of slice

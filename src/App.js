@@ -10,12 +10,18 @@ import {useState} from 'react'
 import { StoreProvider } from "easy-peasy";
 import Select from "react-select";
 
+import { store as reduxStore}  from './store/reduxStore'
+import { Provider } from 'react-redux'
+import { ReduxToolKit } from "./components/lcViewer/redux-toolkit";
+import { MemoHook } from "./components/memo/memoHook";
+
 const options = [
   { value: 1, label: "UseEffect,State,Ref" },
   { value: 2, label: "Easy-Peasy" },
   { value: 3, label: "Reducer" },
   { value: 4, label: "useContext" },
   { value: 5, label: "useSelector & useDispatch" },
+  { value: 6, label: "useMemo & useCallback" },
 ];
 
 function App() {
@@ -54,10 +60,13 @@ function App() {
 
       {/* useSelector and useDispatch */}
       {val === 5 && (
-        <StoreProvider store={store}>
-          <EasyPeasyRedux />
-        </StoreProvider>
+        <Provider store={reduxStore}>
+          <ReduxToolKit />
+        </Provider>
       )}
+
+      {val === 6 && <MemoHook />}
+
     </>
   );
 }
